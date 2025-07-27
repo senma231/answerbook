@@ -17,6 +17,8 @@ export interface Answer {
   text: string;
   category: 'positive' | 'negative' | 'neutral' | 'mysterious';
   wisdom: string;
+  theme: 'work' | 'emotion' | 'life' | 'family' | 'mindset' | 'health' | 'money' | 'study' | 'relationship' | 'general';
+  tags: string[];
 }
 
 export interface AppState {

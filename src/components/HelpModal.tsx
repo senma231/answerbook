@@ -73,10 +73,62 @@ const HelpModal: React.FC<HelpModalProps> = ({ isOpen, onClose }) => {
                   </div>
                 </section>
                 
-                {/* 答案类型 */}
+                {/* 主题分类 */}
                 <section>
                   <h3 className="text-lg font-semibold text-mystical-600 mb-4 flex items-center">
                     <span className="mr-2">🎯</span>
+                    主题分类
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                      <div className="flex items-center mb-1">
+                        <span className="text-lg mr-2">💼</span>
+                        <span className="font-medium text-blue-700">工作事业</span>
+                      </div>
+                      <p className="text-xs text-blue-600">职场发展、事业规划</p>
+                    </div>
+                    <div className="bg-pink-50 p-3 rounded-lg border border-pink-200">
+                      <div className="flex items-center mb-1">
+                        <span className="text-lg mr-2">💕</span>
+                        <span className="font-medium text-pink-700">情感关系</span>
+                      </div>
+                      <p className="text-xs text-pink-600">爱情、友情、人际关系</p>
+                    </div>
+                    <div className="bg-green-50 p-3 rounded-lg border border-green-200">
+                      <div className="flex items-center mb-1">
+                        <span className="text-lg mr-2">🌱</span>
+                        <span className="font-medium text-green-700">生活方式</span>
+                      </div>
+                      <p className="text-xs text-green-600">生活选择、人生规划</p>
+                    </div>
+                    <div className="bg-orange-50 p-3 rounded-lg border border-orange-200">
+                      <div className="flex items-center mb-1">
+                        <span className="text-lg mr-2">👨‍👩‍👧‍👦</span>
+                        <span className="font-medium text-orange-700">家庭亲情</span>
+                      </div>
+                      <p className="text-xs text-orange-600">家庭关系、亲情维护</p>
+                    </div>
+                    <div className="bg-purple-50 p-3 rounded-lg border border-purple-200">
+                      <div className="flex items-center mb-1">
+                        <span className="text-lg mr-2">🧘</span>
+                        <span className="font-medium text-purple-700">心态调节</span>
+                      </div>
+                      <p className="text-xs text-purple-600">心理状态、情绪管理</p>
+                    </div>
+                    <div className="bg-red-50 p-3 rounded-lg border border-red-200">
+                      <div className="flex items-center mb-1">
+                        <span className="text-lg mr-2">🏃</span>
+                        <span className="font-medium text-red-700">健康养生</span>
+                      </div>
+                      <p className="text-xs text-red-600">身体健康、养生保健</p>
+                    </div>
+                  </div>
+                </section>
+
+                {/* 答案类型 */}
+                <section>
+                  <h3 className="text-lg font-semibold text-mystical-600 mb-4 flex items-center">
+                    <span className="mr-2">📊</span>
                     答案类型
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

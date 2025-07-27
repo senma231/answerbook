@@ -2,13 +2,14 @@
 
 import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getRandomAnswer } from '@/data/answers';
+import { getRandomMultiDimensionalAnswer, themeDescriptions } from '@/data/multi-dimensional-answers';
 import { getMysticalDelay, shouldTriggerSpecialEffect } from '@/utils/randomizer';
 import { cn, generateId } from '@/utils';
 import QuestionInput from './QuestionInput';
 import AnswerDisplay from './AnswerDisplay';
 import HelpModal from './HelpModal';
 import Toast from './Toast';
+import ThemeSelector from './ThemeSelector';
 import type { Answer, AnswerResult, Question } from '@/types';
 
 interface AnswerBookProps {
@@ -22,6 +23,7 @@ const AnswerBook: React.FC<AnswerBookProps> = ({ className }) => {
   const [history, setHistory] = useState<AnswerResult[]>([]);
   const [specialEffect, setSpecialEffect] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const [selectedTheme, setSelectedTheme] = useState<keyof typeof themeDescriptions | null>(null);
   const [toast, setToast] = useState<{
     message: string;
     type: 'success' | 'error' | 'info' | 'warning';
@@ -54,8 +56,8 @@ const AnswerBook: React.FC<AnswerBookProps> = ({ className }) => {
       const delay = getMysticalDelay();
       await new Promise(resolve => setTimeout(resolve, delay));
 
-      // 获取随机答案
-      const answer = getRandomAnswer();
+      // 获取随机答案（可按主题筛选）
+      const answer = getRandomMultiDimensionalAnswer(selectedTheme || undefined);
       
       // 创建答案结果
       const result: AnswerResult = {
@@ -79,7 +81,7 @@ const AnswerBook: React.FC<AnswerBookProps> = ({ className }) => {
       console.error('获取答案时出错:', error);
       setIsLoading(false);
     }
-  }, []);
+  }, [selectedTheme]);
 
   // 显示提示消息
   const showToast = useCallback((message: string, type: 'success' | 'error' | 'info' | 'warning' = 'info') => {
@@ -179,12 +181,30 @@ const AnswerBook: React.FC<AnswerBookProps> = ({ className }) => {
 
         {/* 主要交互区域 */}
         <div className="max-w-4xl mx-auto space-y-12">
+          {/* 主题选择器 */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="flex justify-center"
+          >
+            <ThemeSelector
+              selectedTheme={selectedTheme}
+              onThemeSelect={setSelectedTheme}
+            />
+          </motion.div>
+
           {/* 问题输入区域 */}
           <AnimatePresence mode="wait">
             {!showAnswer && (
               <QuestionInput
                 onSubmit={handleQuestionSubmit}
                 isLoading={isLoading}
+                placeholder={
+                  selectedTheme
+                    ? `向答案之书咨询关于${themeDescriptions[selectedTheme].name}的问题...`
+                    : "在此输入你的问题，让答案之书为你指引..."
+                }
               />
             )}
           </AnimatePresence>

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn, copyToClipboard } from '@/utils';
+import { themeDescriptions } from '@/data/multi-dimensional-answers';
 import type { AnswerDisplayProps } from '@/types';
 
 const AnswerDisplay: React.FC<AnswerDisplayProps> = ({
@@ -97,13 +98,22 @@ const AnswerDisplay: React.FC<AnswerDisplayProps> = ({
             )} />
             
             <div className="p-8">
-              {/* 类别标识 */}
-              <motion.div 
-                className="flex items-center justify-center mb-6"
+              {/* 主题和类别标识 */}
+              <motion.div
+                className="flex items-center justify-center mb-6 space-x-3"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
               >
+                {/* 主题标签 */}
+                {answer.theme && (
+                  <div className="px-3 py-1 bg-mystical-100 text-mystical-700 rounded-full text-sm font-medium flex items-center space-x-1">
+                    <span>{themeDescriptions[answer.theme].icon}</span>
+                    <span>{themeDescriptions[answer.theme].name}</span>
+                  </div>
+                )}
+
+                {/* 类别标签 */}
                 <div className={cn(
                   "px-4 py-2 rounded-full text-white text-sm font-medium flex items-center space-x-2",
                   "bg-gradient-to-r shadow-lg",
@@ -176,9 +186,33 @@ const AnswerDisplay: React.FC<AnswerDisplayProps> = ({
                   </motion.div>
                 )}
               </AnimatePresence>
-              
+
+              {/* 标签显示 */}
+              {answer.tags && answer.tags.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 }}
+                  className="mb-6"
+                >
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {answer.tags.map((tag, index) => (
+                      <motion.span
+                        key={tag}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.8 + index * 0.1 }}
+                        className="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs"
+                      >
+                        #{tag}
+                      </motion.span>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
               {/* 操作按钮 */}
-              <motion.div 
+              <motion.div
                 className="flex justify-center space-x-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
