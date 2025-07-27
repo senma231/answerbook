@@ -1,0 +1,65 @@
+# Cloudflare Pages Headers Configuration
+# 为答案之书应用配置HTTP头部
+
+/*
+  # 安全头部
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  
+  # 内容安全策略
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'
+  
+  # 缓存控制
+  Cache-Control: public, max-age=31536000, immutable
+
+# 静态资源缓存优化
+/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# 字体文件缓存
+*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+  
+*.woff
+  Cache-Control: public, max-age=31536000, immutable
+
+# 图片缓存
+*.png
+  Cache-Control: public, max-age=2592000
+  
+*.jpg
+  Cache-Control: public, max-age=2592000
+  
+*.jpeg
+  Cache-Control: public, max-age=2592000
+  
+*.svg
+  Cache-Control: public, max-age=2592000
+  
+*.webp
+  Cache-Control: public, max-age=2592000
+
+# HTML文件缓存策略
+*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# API路由（如果有）
+/api/*
+  Cache-Control: no-cache, no-store, must-revalidate
+  
+# 清单文件
+/site.webmanifest
+  Cache-Control: public, max-age=86400
+  Content-Type: application/manifest+json
+
+# 机器人文件
+/robots.txt
+  Cache-Control: public, max-age=86400
+  
+/sitemap.xml
+  Cache-Control: public, max-age=86400

@@ -1,0 +1,25 @@
+# Cloudflare Pages Redirects Configuration
+# 为答案之书应用配置重定向规则
+
+# SPA 路由支持 - 将所有未匹配的路由重定向到 index.html
+/* /index.html 200
+
+# 可选的重定向规则（根据需要启用）
+
+# 强制 HTTPS（如果需要）
+# http://answer-book.pages.dev/* https://answer-book.pages.dev/:splat 301!
+
+# 域名重定向（如果有自定义域名）
+# http://www.yourdomain.com/* https://yourdomain.com/:splat 301!
+# https://www.yourdomain.com/* https://yourdomain.com/:splat 301!
+
+# 旧路径重定向（如果有）
+# /old-path /new-path 301
+# /help /about 301
+
+# API 路由重定向（如果需要）
+# /api/* /.netlify/functions/:splat 200
+
+# 错误页面重定向
+# /404 /index.html 200
+# /500 /index.html 200
